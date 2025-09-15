@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Stack</title>
+  <style>
+    body {
+      background-color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .photo-stack {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+
+    .polaroid {
+      position: absolute;
+      width: 180px;
+      background: white;
+      padding: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      border-radius: 5px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 5px;
+    }
+
+    .caption {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* Optional: different rotations for "random" stack look */
+    .p1 { transform: rotate(-10deg); top: 40px; left: 20px; }
+    .p2 { transform: rotate(5deg); top: 60px; left: 60px; }
+    .p3 { transform: rotate(-4deg); top: 90px; left: 100px; }
+    .p4 { transform: rotate(7deg); top: 30px; left: 150px; }
+    .p5 { transform: rotate(-6deg); top: 110px; left: 200px; }
+
+  </style>
+</head>
+<body>
+  <div class="photo-stack">
+    <div class="polaroid p1">
+      <img src="https://picsum.photos/id/1005/300/400" alt="Photo 1">
+      <div class="caption">Hugs ❤️🥂</div>
+    </div>
+    <div class="polaroid p2">
+      <img src="https://picsum.photos/id/1025/300/400" alt="Photo 2">
+      <div class="caption">Love 💕</div>
+    </div>
+    <div class="polaroid p3">
+      <img src="https://picsum.photos/id/1031/300/400" alt="Photo 3">
+      <div class="caption">Cheers 🍻</div>
+    </div>
+    <div class="polaroid p4">
+      <img src="https://picsum.photos/id/1033/300/400" alt="Photo 4">
+      <div class="caption">Fun Time 🥳</div>
+    </div>
+    <div class="polaroid p5">
+      <img src="https://picsum.photos/id/1039/300/400" alt="Photo 5">
+      <div class="caption">Memories 📸</div>
+    </div>
+  </div>
+</body>
+</html>
