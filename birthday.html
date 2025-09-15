@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Kendal Bujjow!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: #000;
+            font-family: 'Comic Neue', cursive;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 40%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            display: none;
+        }
+        
+        .sticky-notes-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        .sticky-note {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 3;
+            overflow: hidden;
+            touch-action: none;
+        }
+        
+        .sticky-note:active {
+            transform: rotate(2deg) scale(1.05);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+        
+        .sticky-note img {
+            width: 100%;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .sticky-note-content {
+            font-family: 'Indie Flower', cursive;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 6px;
+            color: #333;
+            line-height: 1.2;
+        }
+        
+        .sticky-note::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-style: solid;
+            border-width: 0 0 12px 12px;
+            border-color: transparent transparent rgba(0, 0, 0, 0.2) transparent;
+        }
+        
+        .note-yellow { background: linear-gradient(to bottom, #fffd88, #fffc5e); }
+        .note-pink { background: linear-gradient(to bottom, #ffb8ff, #ff94ff); }
+        .note-blue { background: linear-gradient(to bottom, #a6e1ff, #88d6ff); }
+        .note-green { background: linear-gradient(to bottom, #c5ffb2, #aeff94); }
+        .note-purple { background: linear-gradient(to bottom, #d9b5ff, #ca94ff); }
+        
+        .character {
+            position: absolute;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            transition: bottom 1.5s ease-in-out;
+            text-align: center;
+            display: none;
+            width: 80%;
+        }
+        
+        .cake {
+            width: 100px;
+            height: 80px;
+            background: linear-gradient(to bottom, #f86262, #d83c3c);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin: 0 auto 10px;
+            cursor: pointer;
+        }
+        
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 8px;
+            width: 84px;
+            height: 16px;
+            background: linear-gradient(to bottom, #f8c8c8, #f2a6a6);
+            border-radius: 8px;
+        }
+        
+        .candle {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 20px;
+            background: linear-gradient(to bottom, #f2f26f, #e6e655);
+            border-radius: 3px;
+            transition: all 0.5s ease;
+        }
+        
+        .flame {
+            position: absolute;
+            top: -36px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, #ffef5c, #ff9d00, transparent 70%);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 1s infinite alternate;
+            transition: all 0.5s ease;
+        }
+        
+        .teddy {
+            width: 80px;
+            height: 100px;
+            background: #8d5b3a;
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .teddy::before, .teddy::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #8d5b3a;
+            border-radius: 50%;
+            top: -8px;
+        }
+        
+        .teddy::before { left: 8px; }
+        .teddy::after { right: 8px; }
+        
+        .eyes {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            top: 32px;
+        }
+        
+        .eye-left { left: 24px; }
+        .eye-right { right: 24px; }
+        
+        .mouth {
+            position: absolute;
+            width: 16px;
+            height: 6px;
+            background: #ff6b6b;
+            border-radius: 0 0 8px 8px;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 16px;
+            margin-top: 12px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            color: #d83c3c;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-size: 14px;
+        }
+        
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1); }
+        }
+        
+        .show { bottom: 40px !important; }
+        .show-message { opacity: 1 !important; }
+        
+        .instructions {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.7;
+            z-index: 5;
+            width: 90%;
+            line-height: 1.4;
+        }
+        
+        .progress-container {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            z-index: 5;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #ff9d00, #ffef5c);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        
+        /* Confetti effects */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(1000px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Media upload controls */
+        .media-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .upload-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Comic Neue', cursive;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        /* Mobile optimization */
+        @media (max-width: 480px) and (orientation: portrait) {
+            .sticky-note {
+                width: 100px;
+                height: 100px;
+                padding: 10px;
+            }
+            
+            .sticky-note img {
+                height: 50px;
+            }
+            
+            .sticky-note-content {
+                font-size: 12px;
+            }
+            
+            #video-background {
+                width: 90%;
+                height: 30%;
+            }
+            
+            .instructions {
+                font-size: 12px;
+                bottom: 10px;
+            }
+            
+            .media-controls {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .upload-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            .sticky-note {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .sticky-note img {
+                height: 45px;
+            }
+            
+            .sticky-note-content {
+                font-size: 11px;
+            }
+            
+            .character {
+                width: 70%;
+            }
+        }
+        
+        /* Orientation warning */
+        .orientation-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: white;
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) and (orientation: landscape) {
+            .orientation-warning {
+                display: flex;
+            }
+            
+            .container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video id="video-background" autoplay muted>
+            <!-- Video will be set dynamically -->
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="sticky-notes-container">
+            <!-- Sticky notes will be generated dynamically -->
+        </div>
+        
+        <div class="character">
+            <div class="cake">
+                <div class="candle"></div>
+                <div class="flame"></div>
+            </div>
+            <div class="teddy">
+                <div class="eyes eye-left"></div>
+                <div class="eyes eye-right"></div>
+                <div class="mouth"></div>
+            </div>
+            <div class="message">Kendal Bujjow</div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <div class="instructions">
+            Drag the sticky notes aside to reveal the surprise!<br>
+            <span id="notes-remaining">10 notes remaining</span>
+        </div>
+        
+        <!-- Media upload controls -->
+        <div class="media-controls">
+            <button class="upload-btn" id="upload-photos">Add Photos</button>
+            <button class="upload-btn" id="upload-video">Add Video</button>
+            <button class="upload-btn" id="upload-audio">Add Audio</button>
+            
+            <input type="file" id="photo-input" class="file-input" accept="image/*" multiple>
+            <input type="file" id="video-input" class="file-input" accept="video/*">
+            <input type="file" id="audio-input" class="file-input" accept="audio/*">
+        </div>
+    </div>
+    
+    <div class="orientation-warning">
+        Please rotate your phone to portrait mode for the best experience!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sticky notes data - will be populated with uploaded images
+            let notesData = [];
+            
+            const container = document.querySelector('.sticky-notes-container');
+            const progressContainer = document.querySelector('.progress-container');
+            const progressBar = document.querySelector('.progress-bar');
+            const instructions = document.querySelector('.instructions');
+            const notesRemaining = document.getElementById('notes-remaining');
+            const video = document.getElementById('video-background');
+            const character = document.querySelector('.character');
+            const cake = document.querySelector('.cake');
+            const flame = document.querySelector('.flame');
+            const candle = document.querySelector('.candle');
+            const message = document.querySelector('.message');
+            
+            // Upload elements
+            const uploadPhotosBtn = document.getElementById('upload-photos');
+            const uploadVideoBtn = document.getElementById('upload-video');
+            const uploadAudioBtn = document.getElementById('upload-audio');
+            const photoInput = document.getElementById('photo-input');
+            const videoInput = document.getElementById('video-input');
+            const audioInput = document.getElementById('audio-input');
+            
+            let notesCleared = 0;
+            let totalNotes = 0;
+            let birthdayAudio = null;
+            
+            // Default notes data if no photos uploaded
+            const defaultNotesData = [
+                { top: '15%', left: '5%', color: 'note-yellow', text: 'Happy Birthday! 🎉', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23fffc5e"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '25%', left: '75%', color: 'note-pink', text: 'Make a wish! ✨', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23ff94ff"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '60%', left: '10%', color: 'note-blue', text: 'You are amazing! 🌟', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%2388d6ff"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '45%', left: '65%', color: 'note-green', text: 'Best day ever! 🎂', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23aeff94"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '10%', left: '50%', color: 'note-purple', text: 'Celebrate! 🥳', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23ca94ff"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '70%', left: '80%', color: 'note-yellow', text: 'Cake time! 🍰', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23fffc5e"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '35%', left: '25%', color: 'note-pink', text: 'Lots of love! 💖', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23ff94ff"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '55%', left: '45%', color: 'note-blue', text: 'Enjoy your day! 😊', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%2388d6ff"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '20%', left: '85%', color: 'note-green', text: 'Hooray! 🎈', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23aeff94"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' },
+                { top: '75%', left: '30%', color: 'note-purple', text: 'You rock! 🤘', image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" viewBox="0 0 100 70"><rect width="100" height="70" fill="%23ca94ff"/><text x="50" y="35" font-family="Arial" font-size="12" text-anchor="middle" fill="%23333">Add your photo!</text></svg>' }
+            ];
+            
+            // Initialize with default notes
+            initializeNotes(defaultNotesData);
+            
+            // Upload button event listeners
+            uploadPhotosBtn.addEventListener('click', () => photoInput.click());
+            uploadVideoBtn.addEventListener('click', () => videoInput.click());
+            uploadAudioBtn.addEventListener('click', () => audioInput.click());
+            
+            // Handle photo uploads
+            photoInput.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    // Clear existing notes
+                    container.innerHTML = '';
+                    notesData = [];
+                    
+                    // Create new notes from uploaded photos
+                    Array.from(files).forEach((file, index) => {
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const colors = ['note-yellow', 'note-pink', 'note-blue', 'note-green', 'note-purple'];
+                                const color = colors[index % colors.length];
+                                
+                                const top = `${10 + Math.random() * 70}%`;
+                                const left = `${10 + Math.random() * 70}%`;
+                                
+                                notesData.push({
+                                    top,
+                                    left,
+                                    color,
+                                    text: 'Happy Birthday! 🎉',
+                                    image: e.target.result
+                                });
+                                
+                                // If this is the last image, create all notes
+                                if (notesData.length === files.length) {
+                                    initializeNotes(notesData);
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            });
+            
+            // Handle video upload
+            videoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('video/')) {
+                    const videoURL = URL.createObjectURL(file);
+                    video.src = videoURL;
+                }
+            });
+            
+            // Handle audio upload
+            audioInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('audio/')) {
+                    if (birthdayAudio) {
+                        birthdayAudio.pause();
+                    }
+                    birthdayAudio = new Audio(URL.createObjectURL(file));
+                }
+            });
+            
+            // Initialize sticky notes
+            function initializeNotes(data) {
+                notesData = data;
+                totalNotes = notesData.length;
+                notesCleared = 0;
+                updateNotesRemaining();
+                
+                // Create sticky notes
+                notesData.forEach(note => {
+                    const stickyNote = document.createElement('div');
+                    stickyNote.className = `sticky-note ${note.color}`;
+                    stickyNote.style.top = note.top;
+                    stickyNote.style.left = note.left;
+                    stickyNote.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
+                    
+                    const img = document.createElement('img');
+                    img.src = note.image;
+                    img.alt = "Birthday photo";
+                    
+                    const content = document.createElement('div');
+                    content.className = 'sticky-note-content';
+                    content.textContent = note.text;
+                    
+                    stickyNote.appendChild(img);
+                    stickyNote.appendChild(content);
+                    container.appendChild(stickyNote);
+                    
+                    // Make notes draggable
+                    makeDraggable(stickyNote);
+                });
+            }
+            
+            // Update progress
+            function updateProgress() {
+                notesCleared++;
+                const percentage = (notesCleared / totalNotes) * 100;
+                progressBar.style.width = `${percentage}%`;
+                updateNotesRemaining();
+                
+                if (notesCleared === totalNotes) {
+                    // All notes cleared, show video
+                    setTimeout(() => {
+                        video.style.display = 'block';
+                        progressContainer.style.display = 'none';
+                        instructions.style.display = 'none';
+                        
+                        // Play video if it has a source
+                        if (video.src && video.src !== window.location.href) {
+                            video.play();
+                            video.onended = videoEnded;
+                        } else {
+                            // If no video uploaded, proceed after delay
+                            setTimeout(videoEnded, 3000);
+                        }
+                    }, 1000);
+                }
+            }
+            
+            function updateNotesRemaining() {
+                notesRemaining.textContent = `${totalNotes - notesCleared} notes remaining`;
+            }
+            
+            // Video ended handler
+            function videoEnded() {
+                video.style.display = 'none';
+                character.style.display = 'block';
+                
+                // Show character with cake
+                setTimeout(() => {
+                    character.classList.add('show');
+                    
+                    // Show message after a short delay
+                    setTimeout(() => {
+                        message.classList.add('show-message');
+                    }, 1000);
+                }, 500);
+            }
+            
+            // Make elements draggable
+            function makeDraggable(element) {
+                let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                let isDragging = false;
+                
+                element.addEventListener('touchstart', dragTouchStart, { passive: false });
+                element.addEventListener('mousedown', dragMouseDown);
+                
+                function dragMouseDown(e) {
+                    e.preventDefault();
+                    // Get the mouse cursor position
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    
+                    // Play sticky sound
+                    playStickySound();
+                    
+                    document.addEventListener('mouseup', closeDragElement);
+                    document.addEventListener('mousemove', elementDrag);
+                    
+                    element.style.zIndex = "100";
+                    progressContainer.style.display = 'block';
+                }
+                
+                function dragTouchStart(e) {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    pos3 = touch.clientX;
+                    pos4 = touch.clientY;
+                    
+                    playStickySound();
+                    
+                    document.addEventListener('touchend', closeDragElement);
+                    document.addEventListener('touchmove', elementTouchDrag, { passive: false });
+                    
+                    element.style.zIndex = "100";
+                    progressContainer.style.display = 'block';
+                }
+                
+                function elementDrag(e) {
+                    e.preventDefault();
+                    isDragging = true;
+                    // Calculate the new cursor position
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    
+                    // Set the element's new position
+                    element.style.top = (element.offsetTop - pos2) + "px";
+                    element.style.left = (element.offsetLeft - pos1) + "px";
+                }
+                
+                function elementTouchDrag(e) {
+                    e.preventDefault();
+                    isDragging = true;
+                    const touch = e.touches[0];
+                    pos1 = pos3 - touch.clientX;
+                    pos2 = pos4 - touch.clientY;
+                    pos3 = touch.clientX;
+                    pos4 = touch.clientY;
+                    
+                    element.style.top = (element.offsetTop - pos2) + "px";
+                    element.style.left = (element.offsetLeft - pos1) + "px";
+                }
+                
+                function closeDragElement() {
+                    // Stop moving when mouse button is released
+                    document.removeEventListener('mouseup', closeDragElement);
+                    document.removeEventListener('mousemove', elementDrag);
+                    document.removeEventListener('touchend', closeDragElement);
+                    document.removeEventListener('touchmove', elementTouchDrag);
+                    
+                    // Return to normal z-index
+                    setTimeout(() => {
+                        element.style.zIndex = "3";
+                    }, 100);
+                    
+                    // Play sticky sound
+                    playStickySound();
+                    
+                    // Check if note is moved to the side
+                    const rect = element.getBoundingClientRect();
+                    const windowWidth = window.innerWidth;
+                    const threshold = 30; // pixels from edge
+                    
+                    if (rect.left < threshold || rect.right > windowWidth - threshold) {
+                        // Note is moved to the side, mark as cleared
+                        element.style.opacity = '0.5';
+                        element.style.pointerEvents = 'none';
+                        updateProgress();
+                    }
+                    
+                    isDragging = false;
+                }
+            }
+            
+            // Cake click event
+            cake.addEventListener('click', function() {
+                // Blow out candles
+                flame.style.opacity = '0';
+                candle.style.opacity = '0';
+                
+                // Play birthday song
+                playBirthdaySong();
+                
+                // Create confetti effect
+                createConfetti();
+                
+                // Teddy reaction (slightly bounce)
+                character.style.transform = 'translateX(-50%) translateY(-10px)';
+                setTimeout(() => {
+                    character.style.transform = 'translateX(-50%) translateY(0)';
+                }, 300);
+                
+                // Exit after song would finish
+                setTimeout(() => {
+                    character.classList.remove('show');
+                    message.classList.remove('show-message');
+                    
+                    // Reset after exit
+                    setTimeout(() => {
+                        flame.style.opacity = '1';
+                        candle.style.opacity = '1';
+                        character.style.display = 'none';
+                    }, 1000);
+                }, 10000); // Simulate song duration
+            });
+            
+            // Create confetti effect
+            function createConfetti() {
+                const colors = ['#ff9d00', '#ffef5c', '#ff6b6b', '#5cff8c', '#5c8cff'];
+                const container = document.querySelector('.container');
+                
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+                    container.appendChild(confetti);
+                    
+                    // Remove confetti after animation completes
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+            
+            // Sound effects
+            function playStickySound() {
+                // Simple sound effect
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
+                
+                const gainNode = audioContext.createGain();
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }
+            
+            function playBirthdaySong() {
+                if (birthdayAudio) {
+                    birthdayAudio.play();
+                } else {
+                    // Fallback to simple tune if no audio uploaded
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const notes = [
+                        { note: 264, duration: 0.5 }, // C
+                        { note: 264, duration: 0.5 }, // C
+                        { note: 297, duration: 1 },   // D
+                        { note: 264, duration: 1 },   // C
+                        { note: 352, duration: 1 },   // F
+                        { note: 330, duration: 2 }    // E
+                    ];
+                    
+                    let time = audioContext.currentTime;
+                    
+                    notes.forEach(tone => {
+                        const oscillator = audioContext.createOscillator();
+                        oscillator.type = 'sine';
+                        oscillator.frequency.setValueAtTime(tone.note, time);
+                        
+                        const gainNode = audioContext.createGain();
+                        gainNode.gain.setValueAtTime(0.5, time);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, time + tone.duration);
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.start(time);
+                        oscillator.stop(time + tone.duration);
+                        
+                        time += tone.duration;
+                    });
+                }
+            }
+            
+            // Prevent default touch actions
+            document.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        });
+    </script>
+</body>
+</html>
